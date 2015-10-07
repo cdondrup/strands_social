@@ -17,7 +17,7 @@ class brandingServer(object):
     def __init__(self, name):
         self.cancelled = False
         self._action_name = name
-        
+
         #self.brand_image_path = rospy.get_param("~brand_image_path",'/tmp/Tweeter_branding.png')
         rospy.loginfo("Creating action servers.")
         print self._action_name
@@ -31,12 +31,12 @@ class brandingServer(object):
 
         rospy.loginfo("Ready ...")
 
-        self.photo_pub = rospy.Publisher('/nhm/twitter/image', Image, latch=True)
+        self.photo_pub = rospy.Publisher('~image', Image, latch=True)
 
         rospy.spin()
 
 
-        
+
     def executeCallback(self, goal):
         rospy.loginfo("branding...")
         self._feedback.progress = 'branding...'
@@ -45,7 +45,7 @@ class brandingServer(object):
 
         result=self._brand_photo(goal)
 
-        
+
         if not self.cancelled :
             self._result.success = result
             self._as.publish_feedback(self._feedback)
@@ -59,29 +59,29 @@ class brandingServer(object):
         #photo = open('/home/jaime/Linderva.png', 'rb')
         bridge = CvBridge()
         photo = bridge.imgmsg_to_cv2(goal.photo, "bgr8")
-        
+
         #height, width, depth = photo.shape
         #print height, width, depth
-        
+
         #cv2.imwrite('/tmp/temp_tweet.png', photo)
         brand_image_path = rospy.get_param("~brand_image_path",'/tmp/Tweeter_branding.png')
         #print "loading"
-        
+
         bgphoto = cv2.imread(brand_image_path)
         #print "Done"
 
         #height, width, depth = bgphoto.shape
         #print height, width, depth
-        
+
         dst = cv2.addWeighted(photo,1.0,bgphoto,0.7,0)
 
         bridge = CvBridge()
         image_message = bridge.cv2_to_imgmsg(dst, encoding="bgr8")
-        
+
         self.photo_pub.publish(image_message)
-        
+
         self._result.branded_image = image_message
-        
+
         result=True
         return result
 
@@ -95,4 +95,3 @@ class brandingServer(object):
 if __name__ == '__main__':
     rospy.init_node('image_branding')
     server = brandingServer(rospy.get_name())
-    

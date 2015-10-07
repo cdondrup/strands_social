@@ -23,6 +23,7 @@
   <build_depend>social_card_reader</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>strands_tweets</build_depend>
+  <build_depend>fake_camera_effects</build_depend>
 
   <run_depend>actionlib</run_depend>
   <run_depend>cv_bridge</run_depend>
@@ -33,7 +34,7 @@
   <run_depend>social_card_reader</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>strands_tweets</run_depend>
-
+  <run_depend>fake_camera_effects</run_depend>
 
   <export>
 
