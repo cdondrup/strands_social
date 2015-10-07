@@ -90,6 +90,7 @@ void grayImageCallback(const sensor_msgs::ImageConstPtr& msg)
 		int ptr = depthImage->bpp*(((int)currentSegment.y)*depthImage->width+(int)currentSegment.x);
 		float distance = 0.001*(depthImage->data[ptr]+depthImage->data[ptr+1]*255);
 		geometry_msgs::PoseStamped pose;
+        pose.header = msg->header;
 		pose.pose.position.x = -o.y;
 		pose.pose.position.y = -o.z;
 		pose.pose.position.z = o.x;
