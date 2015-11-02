@@ -72,7 +72,7 @@ class read_and_tweet(object):
             tweetgoal.with_photo = True
             tweetgoal.photo = br_ph.branded_image
 
-#            self.client.send_goal(tweetgoal) # Uncomment!!!
+            self.client.send_goal(tweetgoal)
 
 
             #self.client.wait_for_result()
